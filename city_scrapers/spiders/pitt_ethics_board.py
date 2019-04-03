@@ -11,7 +11,8 @@ class PittEthicsBoardSpider(CityScrapersSpider):
     start_urls = ["http://pittsburghpa.gov/ehb/ehb-meetings"]
 
     def _get_address(self, response):
-        address = (response.xpath(''))
+        address = (response.css('p::text').extract()[0])
+        return address
 
 
     def parse(self, response):
@@ -22,24 +23,40 @@ class PittEthicsBoardSpider(CityScrapersSpider):
         needs.
         """
         address = self._get_address(response)
-        for item in response.css(".meetings"):
-            meeting = Meeting(
-                title=self._parse_title(item),
+        item = ""
+        meeting = Meeting(
+            title=self._parse_title(item),
                 description=self._parse_description(item),
                 classification=self._parse_classification(item),
                 start=self._parse_start(item),
                 end=self._parse_end(item),
                 all_day=self._parse_all_day(item),
                 time_notes=self._parse_time_notes(item),
-                location=self._parse_location(item),
+                location=self._parse_location(address),
                 links=self._parse_links(item),
                 source=self._parse_source(response),
             )
 
-            meeting["status"] = self._get_status(meeting)
-            meeting["id"] = self._get_id(meeting)
 
-            yield meeting
+        yield meeting
+        # for item in response.css(".meetings"):
+        #     meeting = Meeting(
+        #         title=self._parse_title(item),
+        #         description=self._parse_description(item),
+        #         classification=self._parse_classification(item),
+        #         start=self._parse_start(item),
+        #         end=self._parse_end(item),
+        #         all_day=self._parse_all_day(item),
+        #         time_notes=self._parse_time_notes(item),
+        #         location=self._parse_location(address),
+        #         links=self._parse_links(item),
+        #         source=self._parse_source(response),
+        #     )
+
+        #     meeting["status"] = self._get_status(meeting)
+        #     meeting["id"] = self._get_id(meeting)
+
+        #     yield meeting
 
     def _parse_title(self, item):
         """Parse or generate meeting title."""

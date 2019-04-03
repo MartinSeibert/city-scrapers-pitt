@@ -36,8 +36,8 @@ freezer.stop()
 #     assert parsed_items[0]["description"] == "EXPECTED DESCRIPTION"
 
 
-def test_start():
-    assert parsed_items[0]["start"] == datetime(2019, 1, 10, 4, 0)
+# def test_start():
+#     assert parsed_items[0]["start"] == datetime(2019, 1, 10, 4, 0)
 
 
 # def test_end():
@@ -56,11 +56,11 @@ def test_start():
 #     assert parsed_items[0]["status"] == "EXPECTED STATUS"
 
 
-# def test_location():
-#     assert parsed_items[0]["location"] == {
-#         "name": "EXPECTED NAME",
-#         "address": "EXPECTED ADDRESS"
-#     }
+def test_location():
+    assert parsed_items[0]["location"] == {
+        "name": "",
+        "address": "Room 646 of the City-County Building, 414 Grant Street, Pittsburgh, PA 15219"
+    }
 
 
 def test_source():
