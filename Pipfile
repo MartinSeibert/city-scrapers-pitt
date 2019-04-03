@@ -18,6 +18,7 @@ pytest = "*"
 "flake8" = "*"
 isort = "*"
 yapf = "*"
+pylint = "*"
 
 [pipenv]
 allow_prereleases = true

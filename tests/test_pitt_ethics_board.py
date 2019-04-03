@@ -22,14 +22,11 @@ parsed_items = [item for item in spider.parse(test_response)]
 freezer.stop()
 
 
-def test_tests():
-    print("Please write some tests for this spider or at least disable this one.")
-    assert False
+# def test_tests():
+#     print("Please write some tests for this spider or at least disable this one.")
+#     assert False """
 
 
-"""
-Uncomment below
-"""
 
 # def test_title():
 #     assert parsed_items[0]["title"] == "EXPECTED TITLE"
@@ -39,8 +36,8 @@ Uncomment below
 #     assert parsed_items[0]["description"] == "EXPECTED DESCRIPTION"
 
 
-# def test_start():
-#     assert parsed_items[0]["start"] == datetime(2019, 1, 1, 0, 0)
+def test_start():
+    assert parsed_items[0]["start"] == datetime(2019, 1, 10, 4, 0)
 
 
 # def test_end():
@@ -66,8 +63,8 @@ Uncomment below
 #     }
 
 
-# def test_source():
-#     assert parsed_items[0]["source"] == "EXPECTED URL"
+def test_source():
+    assert parsed_items[0]["source"] == "http://pittsburghpa.gov/ehb/ehb-meetings"
 
 
 # def test_links():
@@ -81,6 +78,6 @@ Uncomment below
 #     assert parsed_items[0]["classification"] == NOT_CLASSIFIED
 
 
-# @pytest.mark.parametrize("item", parsed_items)
-# def test_all_day(item):
-#     assert item["all_day"] is False
+@pytest.mark.parametrize("item", parsed_items)
+def test_all_day(item):
+    assert item["all_day"] is False

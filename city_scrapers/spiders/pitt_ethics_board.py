@@ -6,9 +6,13 @@ from city_scrapers_core.spiders import CityScrapersSpider
 class PittEthicsBoardSpider(CityScrapersSpider):
     name = "pitt_ethics_board"
     agency = "Pittsburgh Ethics Hearing Board"
-    timezone = "America/Chicago"
+    timezone = "America/New_York"
     allowed_domains = ["pittsburghpa.gov"]
     start_urls = ["http://pittsburghpa.gov/ehb/ehb-meetings"]
+
+    def _get_address(self, response):
+        address = (response.xpath(''))
+
 
     def parse(self, response):
         """
@@ -17,6 +21,7 @@ class PittEthicsBoardSpider(CityScrapersSpider):
         Change the `_parse_title`, `_parse_start`, etc methods to fit your scraping
         needs.
         """
+        address = self._get_address(response)
         for item in response.css(".meetings"):
             meeting = Meeting(
                 title=self._parse_title(item),
@@ -64,10 +69,17 @@ class PittEthicsBoardSpider(CityScrapersSpider):
         """Parse or generate all-day status. Defaults to False."""
         return False
 
-    def _parse_location(self, item):
+    def _parse_location(self, address):
         """Parse or generate location."""
+        room = "Room 646 of the City-County Building"
+        street = "414 Grant Street"
+        city = "Pittsburgh, PA 15219"
+
+        if not (room in address):
+            raise ValueError("The address for this meeting has changed")
+
         return {
-            "address": "",
+            "address": ", ".join([room, street, city]),
             "name": "",
         }
 
