@@ -1,3 +1,5 @@
+from dateutil.parser import parse
+
 from datetime import datetime
 from os.path import dirname, join
 
@@ -14,6 +16,8 @@ test_response = file_response(
 )
 spider = PittEthicsBoardSpider()
 
+meetings = spider._build_datatable(test_response)
+
 freezer = freeze_time("2019-03-29")
 freezer.start()
 
@@ -22,23 +26,22 @@ parsed_items = [item for item in spider.parse(test_response)]
 freezer.stop()
 
 
-# def test_tests():
-#     print("Please write some tests for this spider or at least disable this one.")
-#     assert False """
+def test_meetings():
+	
+	assert len(meetings) > 0
 
-
-
-# def test_title():
-#     assert parsed_items[0]["title"] == "EXPECTED TITLE"
+def test_title():
+	print("TITLE: " + parsed_items[0]["title"])
+	assert parsed_items[0]["title"] == "Ethics Hearing Board Meeting"
 
 
 # def test_description():
 #     assert parsed_items[0]["description"] == "EXPECTED DESCRIPTION"
 
 
-# def test_start():
-#     assert parsed_items[0]["start"] == datetime(2019, 1, 10, 4, 0)
-
+def test_start():
+	assert parsed_items[0]["start"] == datetime(2019, 1, 10, 16, 0)
+	
 
 # def test_end():
 #     assert parsed_items[0]["end"] == datetime(2019, 1, 1, 0, 0)
