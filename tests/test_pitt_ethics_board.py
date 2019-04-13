@@ -27,11 +27,9 @@ freezer.stop()
 
 
 def test_meetings():
-	
 	assert len(meetings) > 0
 
 def test_title():
-	print("TITLE: " + parsed_items[0]["title"])
 	assert parsed_items[0]["title"] == "Ethics Hearing Board Meeting"
 
 

@@ -17,8 +17,6 @@ class PittEthicsBoardSpider(CityScrapersSpider):
         return address
 
     def _build_datatable(self, response):
-        # alist_tbody = (response.xpath('//table[1]/tbody//td').extract())
-        datatable = []
         meetings = response.xpath('//div[@class="collapsing-content"]//div[@class="col-lg-4"]//strong/text()').extract()
 
 
